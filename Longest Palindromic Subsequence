@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+int f(int i,int j,string &str,string &t,vector<vector<int>>&dp)
+{
+    if(i<0 || j<0)
+        return 0;
+     if(dp[i][j]!=-1)
+            return dp[i][j];
+    if(str[i]==t[j])
+       
+        return 1+f(i-1,j-1,str,t,dp);
+    return max(f(i-1,j,str,t,dp),f(i,j-1,str,t,dp));
+}
+int longest(string str)
+{
+    string t=str;
+    reverse(t.begin(),t.end());
+    int i=str.size();
+    int j=t.size();
+    vector<vector<int>>dp(i,vector<int>(j+1,-1));
+    return f(i-1,j-1,str,t,dp);
+}
+int minInsertion(string &str)
+{
+    // Write your code here.
+    return str.size()-longest(str);
+}
